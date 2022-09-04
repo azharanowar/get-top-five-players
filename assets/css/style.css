@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Montserrat:wght@400;500;600;700;800&display=swap');
+body {
+    font-family: "Montserrat";
+    overflow-x: hidden;
+    background-color: #151515;
+}
+
+.hero-img-left-bg {
+    background-image: url("../images/hero-img-back.png");
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.hero-stylist-title {
+    font-family: 'Bad Script', cursive;
+    font-size: 70px;
+    color: orange;
+}
+
+.highlight-underline-img {
+    margin-right: 5% !important;
+    width: 30%;
+}
+
+.hero-img-right-bg {
+    background-image: url("../images/Rectangle\ 57.png");
+    background-position: bottom right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
