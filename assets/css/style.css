@@ -29,3 +29,18 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.sticky-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.players-card {
+    background-color: #0D0D0D;
+    border: 1px solid #434343;
+}
+
+.select-btn {
+    background-color: orange;
+}
