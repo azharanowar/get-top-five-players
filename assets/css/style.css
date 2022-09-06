@@ -14,7 +14,7 @@ body {
 
 .hero-stylist-title {
     font-family: 'Bad Script', cursive;
-    font-size: 70px;
+    font-size: 70px !important;
     color: orange;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 .hero-img-right-bg {
-    background-image: url("../images/Rectangle\ 57.png");
+    background-image: url("../images/hero-right-bg-img.png");
     background-position: bottom right;
     background-size: contain;
     background-repeat: no-repeat;
@@ -41,6 +41,10 @@ body {
     border: 1px solid #434343;
 }
 
-.select-btn {
+.submit-btn {
     background-color: orange;
+}
+
+.get-top-five-list li span {
+    margin-left: 7%;
 }
