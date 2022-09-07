@@ -78,6 +78,10 @@ body {
         font-size: 3rem !important;
         color: orange;
     }
+
+    .heading-highlight-underline {
+        width: 30% !important;
+    }
 }
 
 @media screen and ( min-width: 576px ) and ( max-width: 768px ) {
@@ -86,6 +90,10 @@ body {
         font-size: 3.5rem !important;
         color: orange;
     }
+    
+    .heading-highlight-underline {
+        width: 40% !important;
+    }
 }
 
 @media screen and ( min-width: 768px ) and ( max-width: 992px ) {
@@ -93,6 +101,10 @@ body {
         font-family: 'Bad Script', cursive;
         font-size: 3rem !important;
         color: orange;
+    }  
+
+    .heading-highlight-underline {
+        width: 25% !important;
     }
 }
 
