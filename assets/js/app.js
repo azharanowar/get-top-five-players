@@ -6,14 +6,14 @@ document.getElementById("playersListShow").addEventListener('click', function(ev
     removePlayerToList(event);
 });
 
-document.getElementById("playerCostInputField").addEventListener('keyup', function() {
-    const hasPlayerInList = document.getElementById("playersListShow").childElementCount;
-    if ( hasPlayerInList ) {
-        inputFieldValidationById("playerCostInputField", "calculateBtn");
-    } else {
-        alert("Player list can't be empty!!! Please first add your players to the list.");
-        buttonDisable( "calculateBtn", true );
-    }
+document.getElementById("perPlayerCostInputField").addEventListener('keyup', function() {
+    inputFieldValidationById("perPlayerCostInputField", "calculateBtn");
+});
+
+let playerTotalExpenses;
+document.getElementById("calculateBtn").addEventListener('click', function() {
+    inputFieldValidationById("perPlayerCostInputField", "calculateBtn");
+    playerTotalExpensesCalculation()
 
 });
 
@@ -69,14 +69,15 @@ function inputFieldValidationById( inputFieldId, submitBtnId ) {
     const inputFieldValue = document.getElementById( inputFieldId ).value;
 
     if ( inputFieldValue === "" ) {
-        buttonDisable( submitBtnId, true );
         alert("Input field can't be empty!!!");
+        return false;
     } else if ( isNaN( inputFieldValue ) || inputFieldValue < 0 ) {
-        buttonDisable( submitBtnId, true );
         alert("Input field most be a positive number!!!");
+        return false;
     } else {
         // All condition passed, that's mean input field is valid
-        buttonDisable( submitBtnId, false );
+        
+        return inputFieldValue;
     }
 
 }
@@ -86,5 +87,15 @@ function buttonDisable( buttonId, disable ) {
         document.getElementById( buttonId ).disabled = true;
     } else {
         document.getElementById( buttonId ).disabled = false;
+    }
+}
+
+function playerTotalExpensesCalculation() {
+    const perPlayerCost = parseFloat( document.getElementById("perPlayerCostInputField").value );
+    const numberOfPlayerSelected = document.getElementById("playersListShow").childElementCount;
+    
+    if ( perPlayerCost && numberOfPlayerSelected ) {
+        playerTotalExpenses = perPlayerCost * numberOfPlayerSelected;
+        return document.getElementById("playerTotalExpenses").innerText = playerTotalExpenses;
     }
 }
