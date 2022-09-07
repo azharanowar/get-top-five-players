@@ -1,5 +1,6 @@
 document.getElementById("playersCard").addEventListener('click', function(event) {
     addNewPlayerToList(event);
+    
 });
 
 document.getElementById("playersListShow").addEventListener('click', function(event) {
@@ -7,14 +8,37 @@ document.getElementById("playersListShow").addEventListener('click', function(ev
 });
 
 document.getElementById("perPlayerCostInputField").addEventListener('keyup', function() {
-    inputFieldValidationById("perPlayerCostInputField", "calculateBtn");
+    inputFieldValidationById("perPlayerCostInputField");
 });
 
 let playerTotalExpenses;
 document.getElementById("calculateBtn").addEventListener('click', function() {
-    inputFieldValidationById("perPlayerCostInputField", "calculateBtn");
-    playerTotalExpensesCalculation()
+    playerTotalExpensesCalculation();
+});
 
+
+let managerCost;
+document.getElementById("managerCostInputField").addEventListener('keyup', function() {
+    managerCost = inputFieldValidationById("managerCostInputField");
+    if ( managerCost && coachCost ) {
+        document.getElementById("calculateTotalBtn").disabled = false;
+    } else {
+        document.getElementById("calculateTotalBtn").disabled = true;
+    }
+});
+
+let coachCost;
+document.getElementById("coachCostInputField").addEventListener('keyup', function() {
+    coachCost = inputFieldValidationById("coachCostInputField");
+    if ( managerCost && coachCost ) {
+        document.getElementById("calculateTotalBtn").disabled = false;
+    } else {
+        document.getElementById("calculateTotalBtn").disabled = true;
+    }
+});
+
+document.getElementById("calculateTotalBtn").addEventListener('click', function() {
+    totalExpensesCalculation();
 });
 
 
@@ -33,12 +57,12 @@ function addNewPlayerToList(event) {
             alert("You've already added 5 players. To add a new player you have to remove one from selected lists!!!");
         }
 
-        if ( document.getElementById("playersListShow").childElementCount > 0 ) {
-            buttonDisable( "calculateBtn", false );
+        const numberOfPlayerSelected = document.getElementById("playersListShow").childElementCount;
+        if ( numberOfPlayerSelected > 0 ) {
+            document.getElementById("calculateBtn").disabled = false;
         } else {
-            buttonDisable( "calculateBtn", true );
+            document.getElementById("calculateBtn").disabled = true;
         }
-        
     }
 }
 
@@ -56,16 +80,23 @@ function removePlayerToList(event) {
             }
         }
         removingPlayerListTag.parentNode.removeChild(removingPlayerListTag);
-        
-        if ( document.getElementById("playersListShow").childElementCount > 0 ) {
-            buttonDisable( "calculateBtn", false );
+
+        const numberOfPlayerSelected = document.getElementById("playersListShow").childElementCount;
+        if ( numberOfPlayerSelected > 0 ) {
+            document.getElementById("calculateBtn").disabled = false;
         } else {
-            buttonDisable( "calculateBtn", true )
+            document.getElementById("calculateBtn").disabled = true;
+        }
+        
+        const perPlayerInputValue = parseFloat( document.getElementById("perPlayerCostInputField").value );
+
+        if ( perPlayerInputValue > 0  ) {
+            playerTotalExpensesCalculation();
         }
     }
 }
 
-function inputFieldValidationById( inputFieldId, submitBtnId ) {
+function inputFieldValidationById( inputFieldId ) {
     const inputFieldValue = document.getElementById( inputFieldId ).value;
 
     if ( inputFieldValue === "" ) {
@@ -77,25 +108,32 @@ function inputFieldValidationById( inputFieldId, submitBtnId ) {
     } else {
         // All condition passed, that's mean input field is valid
         
-        return inputFieldValue;
+        return parseFloat( inputFieldValue );
     }
 
-}
-
-function buttonDisable( buttonId, disable ) {
-    if ( disable ) {
-        document.getElementById( buttonId ).disabled = true;
-    } else {
-        document.getElementById( buttonId ).disabled = false;
-    }
 }
 
 function playerTotalExpensesCalculation() {
-    const perPlayerCost = parseFloat( document.getElementById("perPlayerCostInputField").value );
+    const perPlayerCost = inputFieldValidationById("perPlayerCostInputField");
     const numberOfPlayerSelected = document.getElementById("playersListShow").childElementCount;
-    
     if ( perPlayerCost && numberOfPlayerSelected ) {
         playerTotalExpenses = perPlayerCost * numberOfPlayerSelected;
         return document.getElementById("playerTotalExpenses").innerText = playerTotalExpenses;
+    } else {
+        playerTotalExpenses = 0;
+        return document.getElementById("playerTotalExpenses").innerText = "00";
+    }
+}
+
+function totalExpensesCalculation() {
+    if ( playerTotalExpenses && managerCost && coachCost ) {
+        const totalExpenses = playerTotalExpenses + managerCost + coachCost;
+        document.getElementById("totalExpenses").innerText = totalExpenses;
+    } else if ( ! playerTotalExpenses ) {
+        alert("You have to complete players expenses section first to calculate total expenses!!!");
+        return;
+    } else if ( ! managerCost && ! coachCost ) {
+        inputFieldValidationById("managerCostInputField");
+        inputFieldValidationById("coachCostInputField");
     }
 }
