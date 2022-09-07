@@ -45,8 +45,31 @@ body {
     background-color: orange;
 }
 
-.get-top-five-list li span {
-    margin-left: 7%;
+.get-top-five-list li {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+.get-top-five-list .listed-player-name {
+    margin-left: 5%;
+}
+
+.get-top-five-list li .remove-player {
+    position: absolute;
+    right: 5%;
+}
+
+
+.remove-player {
+    cursor: pointer;
+    transition: 400ms;
+    border-radius: 50px;
+    padding: 4px 5px;
+}
+
+.remove-player:hover {
+    color: black;
+    background-color: rgba(131, 131, 131, 0.397);
+    border-radius: 50%;
 }
 
 @media screen and ( max-width: 576px ) {
